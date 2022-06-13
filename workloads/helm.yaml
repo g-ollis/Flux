@@ -7,3 +7,13 @@ spec:
   type: oci
   interval: 1m0s
   url: oci://gollistest.azurecr.io/helm/hello-world
+ ---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: podinfo
+  namespace: default
+spec:
+  chart:
+    repository: oci://gollistest.azurecr.io/helm/hello-world
+    name: podinfo
