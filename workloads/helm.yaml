@@ -1,19 +1,25 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: pod
-  namespace: default
+  name: gollis-acr
+  namespace: flux
 spec:
+  url: oci://gollistest.azurecr.io/helm
   type: oci
-  interval: 1m0s
-  url: oci://gollistest.azurecr.io/helm/hello-world
- ---
-apiVersion: helm.fluxcd.io/v1
+  interval: 10m
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: podinfo
-  namespace: default
+  name: gollis-release
+  namespace: flux
 spec:
+  interval: 5m
   chart:
-    repository: oci://gollistest.azurecr.io/helm/hello-world
-    name: podinfo
+    spec:
+      chart: hello-world
+      sourceRef:
+        kind: HelmRepository
+        name: gollis-acr
+        namespace: flux
+      interval: 1m
