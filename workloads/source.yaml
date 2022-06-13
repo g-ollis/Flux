@@ -1,9 +1,0 @@
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: HelmRepository
-metadata:
-  name: gollis-acr
-  namespace: flux
-spec:
-  url: oci://gollistest.azurecr.io/helm
-  type: oci
-  interval: 10m
